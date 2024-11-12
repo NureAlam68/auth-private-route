@@ -1,11 +1,12 @@
 import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Register = () => {
 
     const {createUser} = useContext(AuthContext)
+    const navigate = useNavigate()
 
     const handleRegister = e => {
         e.preventDefault();
@@ -18,6 +19,12 @@ const Register = () => {
         createUser(email, password)
         .then((result) => {
             console.log(result.user)
+
+            // reset input when register done
+            e.target.reset();
+
+            // go to home when register done
+            navigate("/")
         })
         .catch((error) => {
             console.log("ERROR", error)

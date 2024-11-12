@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 
 const Login = () => {
 
+    const navigate = useNavigate()
     const {signInUser} = useContext(AuthContext)
 
   const handleLogin = (e) => {
@@ -17,6 +18,12 @@ const Login = () => {
     signInUser(email, password)
     .then((result) => {
         console.log(result.user)
+
+        // clean input field when login done
+        e.target.reset()
+
+        // when login done go to home
+        navigate("/")
     })
     .catch((error) => {
         console.log("ERROR", error)
