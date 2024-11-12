@@ -1,12 +1,26 @@
+import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Login = () => {
+
+    const {signInUser} = useContext(AuthContext)
+
   const handleLogin = (e) => {
     e.preventDefault();
     
     const email = e.target.email.value;
     const password = e.target.password.value;
+
+    // signIn user
+    signInUser(email, password)
+    .then((result) => {
+        console.log(result.user)
+    })
+    .catch((error) => {
+        console.log("ERROR", error)
+    })
   };
 
   return (

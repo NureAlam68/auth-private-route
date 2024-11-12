@@ -1,14 +1,27 @@
+import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Register = () => {
+
+    const {createUser} = useContext(AuthContext)
 
     const handleRegister = e => {
         e.preventDefault();
 
         const email = e.target.email.value;
         const password = e.target.password.value;
-        const name = e.target.name.value;
+        // const name = e.target.name.value;
+
+        // create user
+        createUser(email, password)
+        .then((result) => {
+            console.log(result.user)
+        })
+        .catch((error) => {
+            console.log("ERROR", error)
+        })
     }
 
     return (
@@ -60,7 +73,7 @@ const Register = () => {
                 />
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-primary">Login</button>
+                <button className="btn btn-primary">Register</button>
               </div>
             </form>
             <p className="px-10 pb-8">
