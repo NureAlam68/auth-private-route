@@ -6,7 +6,7 @@ import { AuthContext } from "../providers/AuthProvider";
 const Login = () => {
 
     const navigate = useNavigate()
-    const {signInUser} = useContext(AuthContext)
+    const {signInUser, signInWithGoogle} = useContext(AuthContext)
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -26,9 +26,20 @@ const Login = () => {
         navigate("/")
     })
     .catch((error) => {
-        console.log("ERROR", error)
+        console.log("ERROR", error.message)
     })
   };
+
+  const handleGoogleSignIn = () => {
+    signInWithGoogle()
+    .then((result) => {
+        console.log(result.user)
+        navigate("/")
+    })
+    .catch((error) => {
+        console.log("Error", error.message)
+    })
+  }
 
   return (
     <div className="px-[136px] mt-[88px]">
@@ -80,6 +91,9 @@ const Login = () => {
               <Link to="/register" className="underline">
                 Register
               </Link>
+            </p>
+            <p className="px-10 pb-8">
+                <button onClick={handleGoogleSignIn} className="btn btn-">Google</button>
             </p>
           </div>
         </div>
