@@ -20,6 +20,14 @@ const Navbar = () => {
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/login">Login</NavLink></li>
         <li><NavLink to="/register">Register</NavLink></li>
+        
+        {
+            user && <>
+            
+            <li><NavLink to="/orders">Orders</NavLink></li>
+            
+            </>
+        }
     
     </>
 
@@ -62,7 +70,7 @@ const Navbar = () => {
             user ? 
             <>
               <span>{user.email}</span>
-              <a onClick={handleSignOut} className="btn">Sign Out</a>
+              <a onClick={handleSignOut} className="btn ml-2">Sign Out</a>
             </>
             : 
             <Link to="/login">Login</Link>
